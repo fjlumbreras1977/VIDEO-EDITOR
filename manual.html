@@ -4,14 +4,14 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Manual de uso · DRÖMA Video Editor</title>
 <meta name="description" content="Manual de las herramientas y atajos de DRÖMA Video Editor: montaje, pistas, texto, audio, efectos, proyectos y exportación.">
-<link rel="icon" href="logo-viva-blue.png?v=1.0.4" type="image/png">
-<link rel="stylesheet" href="manual.css?v=1.0.4">
+<link rel="icon" href="logo-viva-blue.png?v=1.0.5" type="image/png">
+<link rel="stylesheet" href="manual.css?v=1.0.5">
 </head>
 <body>
 <a class="skip-link" href="#contenido">Ir al contenido del manual</a>
 <header class="manual-masthead">
- <div class="manual-brand"><img class="manual-brand-screen" src="logo-video-editor.svg?v=1.0.4" width="184" height="64" alt="VIVA · VIDEO EDITOR · DRÖMA"><img class="manual-brand-print" src="logo-video-editor-light.svg?v=1.0.4" width="184" height="64" alt="" aria-hidden="true"><div><span>VIDEO EDITOR</span><strong>Manual de uso</strong></div></div>
- <div class="manual-tools"><span class="manual-version">VERSIÓN 1.0.4</span><button id="printManual" type="button">Imprimir / Guardar PDF</button></div>
+ <div class="manual-brand"><img class="manual-brand-screen" src="logo-video-editor.svg?v=1.0.5" width="184" height="64" alt="VIVA · VIDEO EDITOR · DRÖMA"><img class="manual-brand-print" src="logo-video-editor-light.svg?v=1.0.5" width="184" height="64" alt="" aria-hidden="true"><div><span>VIDEO EDITOR</span><strong>Manual de uso</strong></div></div>
+ <div class="manual-tools"><span class="manual-version">VERSIÓN 1.0.5</span><button id="printManual" type="button">Imprimir / Guardar PDF</button></div>
 </header>
 <div class="manual-layout">
 <aside class="manual-sidebar" aria-label="Índice del manual">
@@ -110,6 +110,7 @@
 </section>
 <section id="audio" data-chapter>
 <p class="chapter-number">13 / EL SONIDO</p><h2>Editar y mezclar audio</h2>
+<h3>Ver el audio del vídeo en la línea de tiempo</h3><p>Al colocar un vídeo en una pista, el clip muestra su imagen en la zona superior y la <strong>forma de onda de su sonido</strong> en una banda inferior. No necesitas separar el audio para verla. Mientras se prepara aparecerá «Analizando audio…» o «Audio en espera…»; el análisis se realiza localmente y se reutiliza en todos los fragmentos del mismo archivo.</p><p>La forma de onda sigue el tramo de origen de cada clip: se actualiza al recortar, dividir, duplicar, hacer zoom o cambiar la velocidad. Se calculan picos de todos los canales, también cuando el primer canal está en silencio. Es una referencia del audio original, anterior a los efectos y al volumen del clip. Al silenciar el clip o su pista, se atenúa visualmente, pero la forma original sigue visible.</p><p>Un silencio real se muestra sin picos. Si el archivo no tiene una pista de audio decodificable o el navegador no puede analizar su códec, aparece «Audio no analizable», con un botón para reintentar. La visualización no añade sonido ni altera el archivo original. El análisis de archivos grandes puede tardar y depende de la memoria disponible en el navegador.</p>
 <p>Importa música o locución y arrástrala a una pista de audio. Selecciona el clip para ver <strong>Volumen</strong>, <strong>Balance</strong>, fundidos de entrada y salida, procesamiento y silencio del clip. El volumen va del 0 % al 200 %; sumar pistas o superar el 100 % puede producir saturación, por lo que conviene reducir niveles si el sonido distorsiona.</p>
 <p><strong>Balance</strong> desplaza el sonido hacia la izquierda o la derecha. Los fundidos de audio tienen sus propios tiempos: un fundido visual no sustituye al de sonido.</p>
 <p>El procesamiento ofrece <strong>Teléfono</strong>, <strong>Presencia de voz</strong> y <strong>Compresor</strong>. Selecciona <strong>Sin efecto</strong> para retirar el procesamiento. Estos controles modifican el sonido; no son una transcripción ni una restauración mediante IA.</p>
@@ -152,12 +153,12 @@
 <section id="ayuda" data-chapter>
 <p class="chapter-number">19 / SI ALGO NO ENCAJA</p><h2>Resolver dudas</h2>
 <dl><dt>No aparece un archivo importado en el montaje</dt><dd>Importarlo lo incorpora a la biblioteca. Arrástralo a una pista, haz doble clic en su miniatura o pulsa su botón +.</dd><dt>Un clip está negro o no se ve</dt><dd>Comprueba que el cabezal está dentro de su duración, que su pista no está oculta y que no hay otra capa tapándolo. Revisa también escala, opacidad, recorte y compatibilidad del códec.</dd><dt>No puedo mover o cortar un clip</dt><dd>Revisa la selección y el candado de su pista. Para un corte, el cabezal tiene que estar dentro del clip y separado de sus bordes.</dd><dt>No oigo el audio o se oye doble</dt><dd>Inicia la reproducción con un clic o con Espacio. Revisa los silencios del visor, de la pista y del clip, su volumen y sus tiempos. Después de separar audio, comprueba que no has reactivado también el sonido del vídeo original.</dd><dt>No aparece MP4 o la exportación va a saltos</dt><dd>El formato depende del codificador del navegador. Prueba un navegador compatible y actualizado. Reduce resolución o calidad y evita otras tareas exigentes mientras exportas.</dd><dt>El guardado automático no termina</dt><dd>Puede faltar espacio de almacenamiento local o estar restringido por el navegador. Descarga un proyecto .droma para conservar los medios y el montaje.</dd><dt>Después de actualizar el hosting sigo viendo la versión anterior</dt><dd>Reemplaza todos los archivos del ZIP, incluidos los del manual y el logo. Recarga con Ctrl+F5 y comprueba la versión en <code>VERSION.json</code>.</dd></dl>
-<div class="scope-note"><strong>Alcance actual.</strong> Esta guía documenta las funciones integradas en la versión 1.0.4. Las curvas de velocidad, la reproducción inversa con audio, las transiciones avanzadas, las máscaras con trazado, LUT 3D y estabilización siguen pendientes. El editor no incluye IA ni servicios de procesamiento en la nube. El botón <strong>Estado de funciones</strong> permite consultar ese alcance desde el montaje.</div>
+<div class="scope-note"><strong>Alcance actual.</strong> Esta guía documenta las funciones integradas en la versión 1.0.5. Las curvas de velocidad, la reproducción inversa con audio, las transiciones avanzadas, las máscaras con trazado, LUT 3D y estabilización siguen pendientes. El editor no incluye IA ni servicios de procesamiento en la nube. El botón <strong>Estado de funciones</strong> permite consultar ese alcance desde el montaje.</div>
 </section>
 </article>
-<footer class="manual-footer"><span>DRÖMA VIDEO EDITOR · MANUAL 1.0.4</span><a href="#contenido">Volver al principio ↑</a></footer>
+<footer class="manual-footer"><span>DRÖMA VIDEO EDITOR · MANUAL 1.0.5</span><a href="#contenido">Volver al principio ↑</a></footer>
 </main>
 </div>
-<script src="manual.js?v=1.0.4" defer></script>
+<script src="manual.js?v=1.0.5" defer></script>
 </body>
 </html>

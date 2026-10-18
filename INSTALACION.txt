@@ -1,4 +1,4 @@
-DRÖMA VIDEO EDITOR — VERSIÓN 1.0.4
+DRÖMA VIDEO EDITOR — VERSIÓN 1.0.5
 18 de octubre de 2026
 
 INSTALAR EN TU HOSTING
@@ -104,3 +104,14 @@ sin redibujarlo ni cambiarle el color. Se actualizan cabecera, manual, favicon
 y tarjetas de filtros. El manual incluye una variante para imprimir en papel
 blanco. Sube también logo-video-editor.svg, logo-video-editor-light.svg y
 logo-viva-blue.png. Se mantienen el Manual y la portada de inicio anterior.
+
+CAMBIOS DE LA VERSIÓN 1.0.5
+
+Los clips de vídeo muestran una banda inferior con la forma de onda de su
+audio original, sin separarlo. Se mantiene alineada con el audio al cortar,
+recortar, duplicar, hacer zoom o cambiar velocidad. Se analizan los canales
+del archivo y se comparten los resultados entre todos sus clips. El análisis
+es local y en segundo plano; no tiene el anterior límite artificial de
+150 MB. Se aplican las restricciones de códecs y memoria del navegador.
+Si no puede leerse una pista de audio, se indica y puede reintentarse, sin
+dibujar una onda ficticia. Se añade waveform.js: debe subirse con el resto.

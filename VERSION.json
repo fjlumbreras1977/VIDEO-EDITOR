@@ -1,7 +1,7 @@
 {
   "name": "DROMA Video Editor",
-  "version": "1.0.4",
-  "build": "20261018-hosting-blue-logo-05",
+  "version": "1.0.5",
+  "build": "20261018-hosting-video-waveform-06",
   "entry": "index.html",
   "processing": "local-browser",
   "ai": false,
@@ -11,5 +11,6 @@
   "branding": "Original blue VIVA mark, VIDEO EDITOR / DROMA native lettering",
   "manual": "manual.html",
   "startup_cover": "portada-video.jpg",
-  "startup_minimum_ms": 2500
+  "startup_minimum_ms": 2500,
+  "video_audio_waveform": true
 }
