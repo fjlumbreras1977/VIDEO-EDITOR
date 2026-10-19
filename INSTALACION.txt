@@ -1,4 +1,4 @@
-DRÖMA VIDEO EDITOR — VERSIÓN 1.0.5
+DRÖMA VIDEO EDITOR — VERSIÓN 1.0.6
 18 de octubre de 2026
 
 INSTALAR EN TU HOSTING
@@ -22,6 +22,10 @@ DATOS Y MEDIOS
 El hosting sirve los archivos del editor. Los vídeos, fotos y audios importados
 no se envían al hosting. Se procesan en el navegador del usuario.
 La sesión se guarda en IndexedDB de ese navegador, equipo y dominio.
+Cada apertura del editor comienza con biblioteca y línea de tiempo vacías.
+Archivo > Recuperar sesión anterior permite cargar el último guardado local.
+Abrir el editor vacío no sobrescribe ese guardado; editar empieza una nueva
+sesión guardada. Descarga el proyecto anterior si necesitas conservar ambos.
 El navegador puede borrar datos locales por falta de espacio o al limpiar su
 almacenamiento. Descarga el proyecto .droma para conservar una copia portable:
 incluye el montaje y los medios originales, sin convertirlos a otro formato.
@@ -115,3 +119,24 @@ es local y en segundo plano; no tiene el anterior límite artificial de
 150 MB. Se aplican las restricciones de códecs y memoria del navegador.
 Si no puede leerse una pista de audio, se indica y puede reintentarse, sin
 dibujar una onda ficticia. Se añade waveform.js: debe subirse con el resto.
+
+CAMBIOS DE LA VERSIÓN 1.0.6
+
+Los clips con modificaciones muestran indicadores de efecto, animación,
+fotogramas clave, color, croma, máscara, recorte, transformación, opacidad,
+fusión, velocidad, audio y estilo de texto. CUT identifica un fragmento
+recortado y OFF un contenido oculto. Los indicadores incluyen descripciones
+y acceso directo al ajuste correspondiente. En clips cortos se agrupan en
+un contador o punto; +N abre la lista completa. Se actualizan desde los
+ajustes reales, también al deshacer, dividir y abrir proyectos anteriores.
+Se añade clip-modifiers.js y se actualiza el Manual. Sube todos los archivos.
+
+El botón derecho utiliza un menú propio con «Eliminar clip» en la biblioteca.
+El menú del navegador se desactiva dentro del editor y del Manual. Retirar
+un medio de la biblioteca, también con ×, conserva los clips de la línea de
+tiempo y sus fuentes originales, incluidas en el guardado local y .droma.
+El editor siempre arranca vacío. El ejemplo y la recuperación de la sesión
+anterior solo se cargan desde Archivo. Se añade media-library.js.
+
+VERSIÓN 1.0.9
+Sin solapes de vídeos en una pista. Transiciones arrastrables con ajuste a la unión y marcador editable. Filtros arrastrables al clip con indicador FX.

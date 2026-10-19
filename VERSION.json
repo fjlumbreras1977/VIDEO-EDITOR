@@ -1,7 +1,7 @@
 {
   "name": "DROMA Video Editor",
-  "version": "1.0.5",
-  "build": "20261018-hosting-video-waveform-06",
+  "version": "1.0.8",
+  "build": "20261018-hosting-empty-start-library-menu-08",
   "entry": "index.html",
   "processing": "local-browser",
   "ai": false,
@@ -12,5 +12,22 @@
   "manual": "manual.html",
   "startup_cover": "portada-video.jpg",
   "startup_minimum_ms": 2500,
-  "video_audio_waveform": true
+  "video_audio_waveform": true,
+  "clip_modification_indicators": true,
+  "empty_startup": true,
+  "automatic_session_restore": false,
+  "explicit_session_recovery": true,
+  "library_removal_preserves_timeline": true,
+  "custom_library_context_menu": true,
+  "edition": "desktop",
+  "desktop_version": "1.0.8",
+  "offline": true,
+  "engine": "Electron 44.9.0",
+  "installer_signature": "unsigned",
+  "native_platform_qa": "pending",
+  "desktop_fullscreen_on_start": true,
+  "desktop_exit_button": true,
+  "video_clips_no_overlap": true,
+  "draggable_join_transitions": true,
+  "draggable_filters_with_badges": true
 }

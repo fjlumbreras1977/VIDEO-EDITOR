@@ -1,4 +1,5 @@
 (() => {
+  document.addEventListener('contextmenu', event => event.preventDefault(), {capture: true});
   const params = new URLSearchParams(window.location.search);
   if (params.has('embedded')) document.documentElement.dataset.embedded = 'true';
   const input = document.getElementById('manualSearch');
