@@ -1,4 +1,4 @@
-import {makeProject,validateProject} from './core.js?v=1.0.10';
+import {makeProject,validateProject} from './core.js?v=1.0.11';
 
 // Library membership is independent of the source files used by the montage.
 export const isLibraryAsset=asset=>Boolean(asset)&&asset.inLibrary!==false;

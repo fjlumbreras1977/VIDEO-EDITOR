@@ -1,5 +1,5 @@
-import {videoJoins,reconcileTransitions} from './timeline-editing.js?v=1.0.10';
-import {croppedKeys} from './core.js?v=1.0.10';
+import {videoJoins,reconcileTransitions} from './timeline-editing.js?v=1.0.11';
+import {croppedKeys} from './core.js?v=1.0.11';
 
 export function matchingLinkedVideo(project,audio){
  if(audio.kind!=='audio')return null;

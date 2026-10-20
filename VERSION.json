@@ -1,7 +1,7 @@
 {
   "name": "DROMA Video Editor",
-  "version": "1.0.10",
-  "build": "20261020-moving-dissolves-media-usage-effect-controls",
+  "version": "1.0.11",
+  "build": "20261020-nonblocking-startup",
   "entry": "index.html",
   "processing": "local-browser",
   "ai": false,
@@ -32,5 +32,6 @@
   "filter_intensity": true,
   "effect_keyframes": true,
   "configurable_audio_effects": true,
-  "opencut_development_entry": "opencut/index.html"
+  "opencut_development_entry": "opencut/index.html",
+  "startup_session_read_blocking": false
 }

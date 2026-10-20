@@ -9,11 +9,25 @@
   let dismissed = false;
   let coverStarted = false;
   let coverTimer;
+  let startupError = false;
+  const watchdog = setTimeout(() => {
+    startupError = true;
+    appReady = true;
+    coverElapsed = true;
+    dismissWhenReady();
+    const notice = document.createElement('div');
+    notice.setAttribute('role', 'alert');
+    notice.className = 'startup-error';
+    notice.textContent = 'El editor no ha terminado de iniciar. Recarga con Ctrl+F5. Si continúa, comprueba que has subido todos los archivos del ZIP.';
+    document.body.append(notice);
+  }, 10000);
   const minimumDisplay = 2500;
   function dismissWhenReady() {
     if (!appReady || !coverElapsed || dismissed) return;
     dismissed = true;
     clearTimeout(failedImageTimer);
+    clearTimeout(watchdog);
+    clearTimeout(coverTimer);
     overlay.hidden = true;
     document.body.classList.remove('startup-active');
     surfaces.forEach(surface => { surface.inert = false; });
@@ -32,7 +46,7 @@
     dismissWhenReady();
   }
   const failedImageTimer = setTimeout(imageFailed, 5000);
-  window.dromaStartup = { ready() { appReady = true; dismissWhenReady(); } };
+  window.dromaStartup = { ready() { if (startupError) return; appReady = true; dismissWhenReady(); } };
   if (image.complete) {
     if (image.naturalWidth) startCoverTime();
     else imageFailed();

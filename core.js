@@ -1,5 +1,5 @@
-import {ANIMATABLE_DEFAULTS,ANIMATABLE_PROPS,easeProgress} from './visual-effects.js?v=1.0.10';
-import {validateTransitions} from './timeline-editing.js?v=1.0.10';
+import {ANIMATABLE_DEFAULTS,ANIMATABLE_PROPS,easeProgress} from './visual-effects.js?v=1.0.11';
+import {validateTransitions} from './timeline-editing.js?v=1.0.11';
 export const VERSION=1;
 export const uid=()=>globalThis.crypto?.randomUUID?.()||`id-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 export const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
