@@ -1,5 +1,5 @@
-DRÖMA VIDEO EDITOR — VERSIÓN 1.0.6
-18 de octubre de 2026
+DRÖMA VIDEO EDITOR — VERSIÓN 1.0.10
+20 de octubre de 2026
 
 INSTALAR EN TU HOSTING
 
@@ -120,7 +120,7 @@ es local y en segundo plano; no tiene el anterior límite artificial de
 Si no puede leerse una pista de audio, se indica y puede reintentarse, sin
 dibujar una onda ficticia. Se añade waveform.js: debe subirse con el resto.
 
-CAMBIOS DE LA VERSIÓN 1.0.6
+CAMBIOS DE LA VERSIÓN 1.0.10
 
 Los clips con modificaciones muestran indicadores de efecto, animación,
 fotogramas clave, color, croma, máscara, recorte, transformación, opacidad,
@@ -138,5 +138,5 @@ tiempo y sus fuentes originales, incluidas en el guardado local y .droma.
 El editor siempre arranca vacío. El ejemplo y la recuperación de la sesión
 anterior solo se cargan desde Archivo. Se añade media-library.js.
 
-VERSIÓN 1.0.9
+VERSIÓN 1.0.10
 Sin solapes de vídeos en una pista. Transiciones arrastrables con ajuste a la unión y marcador editable. Filtros arrastrables al clip con indicador FX.

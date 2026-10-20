@@ -1,4 +1,5 @@
-import {validateTransitions} from './timeline-editing.js?v=1.0.9';
+import {ANIMATABLE_DEFAULTS,ANIMATABLE_PROPS,easeProgress} from './visual-effects.js?v=1.0.10';
+import {validateTransitions} from './timeline-editing.js?v=1.0.10';
 export const VERSION=1;
 export const uid=()=>globalThis.crypto?.randomUUID?.()||`id-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 export const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
@@ -8,12 +9,35 @@ export const duration=p=>Math.max(0,...p.clips.map(end));
 export const active=(c,t)=>t>=c.start&&t<end(c);
 export function makeProject(){return {version:VERSION,name:'Mi primera historia',ratio:'16:9',fps:30,bg:'#0b0d12',tracks:[{id:'t1',name:'Texto',kind:'visual'},{id:'v2',name:'Superposición',kind:'visual'},{id:'v1',name:'Vídeo principal',kind:'visual'},{id:'a1',name:'Audio 1',kind:'audio'},{id:'a2',name:'Audio 2',kind:'audio'}],clips:[],markers:[]};}
 export function makeClip(asset,track,start=0){return {id:uid(),assetId:asset.id,kind:asset.kind,name:asset.name,track,start,duration:asset.kind==='image'||asset.kind==='scene'?5:asset.duration,offset:0,speed:1,x:0,y:0,scale:100,rotation:0,opacity:100,volume:100,pan:0,brightness:100,contrast:100,saturation:100,blur:0,filter:'none',fit:'contain',flip:false,fadeIn:0,fadeOut:0,audioIn:0,audioOut:0,animation:'none',keyframes:[]};}
-export function splitClips(p,ids,t){let out=[];for(const c of [...p.clips]){if(!ids.includes(c.id)||t<=c.start+.02||t>=end(c)-.02||p.tracks.find(x=>x.id===c.track)?.locked)continue;const old=clone(c),left=t-c.start;c.duration=left;c.fadeOut=0;c.audioOut=0;c.keyframes=(old.keyframes||[]).filter(k=>k.t<=left);const right={...old,id:uid(),start:t,duration:old.duration-left,offset:old.offset+left*old.speed,fadeIn:0,audioIn:0,keyframes:(old.keyframes||[]).filter(k=>k.t>=left).map(k=>({...k,t:k.t-left}))};
-// Preserve the interpolated transform at the split boundary.
-if(old.keyframes?.length){const props=animated(old,left);c.keyframes.push({t:left,...props});right.keyframes.unshift({t:0,...props});}
-p.clips.push(right);for(const transition of p.transitions||[])if(transition.from===old.id)transition.from=right.id;out.push(right.id);}return out;}
-export function animated(c,local){const keys=[...(c.keyframes||[])].sort((a,b)=>a.t-b.t),props=['x','y','scale','rotation','opacity'];const base=Object.fromEntries(props.map(k=>[k,c[k]??(k==='scale'||k==='opacity'?100:0)]));if(!keys.length)return base;let a=keys[0],b=keys[keys.length-1];if(local<=a.t)return {...base,...Object.fromEntries(props.map(k=>[k,a[k]??base[k]]))};if(local>=b.t)return {...base,...Object.fromEntries(props.map(k=>[k,b[k]??base[k]]))};for(let i=1;i<keys.length;i++)if(keys[i].t>=local){a=keys[i-1];b=keys[i];break;}const q=clamp((local-a.t)/(b.t-a.t||1),0,1);return Object.fromEntries(props.map(k=>[k,(a[k]??base[k])+((b[k]??base[k])-(a[k]??base[k]))*q]));}
-export function croppedKeys(c,from,to){if(!c.keyframes?.length)return [];return [{t:0,...animated(c,from)},...c.keyframes.filter(k=>k.t>from&&k.t<to).map(k=>({...k,t:k.t-from})),{t:to-from,...animated(c,to)}];}
+export function splitClips(p,ids,t){let out=[],splitIds=new Map();for(const c of [...p.clips]){if(!ids.includes(c.id)||t<=c.start+.02||t>=end(c)-.02||p.tracks.find(x=>x.id===c.track)?.locked)continue;const old=clone(c),left=t-c.start;c.duration=left;c.fadeOut=0;c.audioOut=0;c.keyframes=(old.keyframes||[]).filter(k=>k.t<=left);const right={...old,id:uid(),start:t,duration:old.duration-left,offset:old.offset+left*old.speed,fadeIn:0,audioIn:0,keyframes:croppedKeys(old,left,old.duration)};
+c.keyframes=croppedKeys(old,0,left);
+p.clips.push(right);splitIds.set(old.id,right.id);for(const transition of p.transitions||[])if(transition.from===old.id)transition.from=right.id;out.push(right.id);}for(const id of out){const c=p.clips.find(c=>c.id===id);if(c.linkedVideoId&&splitIds.has(c.linkedVideoId))c.linkedVideoId=splitIds.get(c.linkedVideoId);}return out;}
+function curveAt(key,clip){return key.curve||{type:clip.keyframeEasing||'linear',from:0,to:1};}
+export function animated(c,local){
+ const keys=[...(c.keyframes||[])].sort((a,b)=>a.t-b.t),props=ANIMATABLE_PROPS;
+ const base=Object.fromEntries(props.map(k=>[k,c[k]??ANIMATABLE_DEFAULTS[k]]));
+ if(!keys.length)return base;
+ let a=keys[0],b=keys.at(-1);
+ if(local<=a.t)return {...base,...Object.fromEntries(props.map(k=>[k,a[k]??base[k]]))};
+ if(local>=b.t)return {...base,...Object.fromEntries(props.map(k=>[k,b[k]??base[k]]))};
+ for(let i=1;i<keys.length;i++)if(keys[i].t>=local){a=keys[i-1];b=keys[i];break;}
+ const raw=clamp((local-a.t)/(b.t-a.t||1),0,1),curve=curveAt(a,c),lo=easeProgress(curve.from,curve.type),hi=easeProgress(curve.to,curve.type);
+ const q=hi===lo?raw:(easeProgress(curve.from+(curve.to-curve.from)*raw,curve.type)-lo)/(hi-lo);
+ return Object.fromEntries(props.map(k=>[k,(a[k]??base[k])+((b[k]??base[k])-(a[k]??base[k]))*q]));
+}
+export function croppedKeys(c,from,to){
+ if(!c.keyframes?.length)return [];
+ const original=[...c.keyframes].sort((a,b)=>a.t-b.t);
+ const keys=[{t:0,...animated(c,from)},...original.filter(k=>k.t>from&&k.t<to).map(k=>({...k,t:k.t-from})),{t:to-from,...animated(c,to)}];
+ for(let i=0;i<keys.length-1;i++){
+  const begin=keys[i].t+from,finish=keys[i+1].t+from;
+  const index=original.findIndex((k,j)=>j<original.length-1&&begin>=k.t-1e-8&&finish<=original[j+1].t+1e-8);
+  if(index<0){keys[i].curve={type:'linear',from:0,to:1};continue;}
+  const a=original[index],b=original[index+1],curve=curveAt(a,c),range=curve.to-curve.from;
+  keys[i].curve={type:curve.type,from:curve.from+range*(begin-a.t)/(b.t-a.t),to:curve.from+range*(finish-a.t)/(b.t-a.t)};
+ }
+ return keys;
+}
 export function trim(c,side,t){if(!active(c,t)||t<=c.start+.02||t>=end(c)-.02)return false;const original=clone(c);if(side==='left'){const delta=t-c.start;c.start=t;c.duration-=delta;c.offset+=delta*c.speed;c.keyframes=croppedKeys(original,delta,original.duration);}else{c.duration=t-c.start;c.keyframes=croppedKeys(original,0,c.duration);}return true;}
 export function snap(value,points,threshold){let nearest=value,distance=threshold;for(const p of points){if(Math.abs(value-p)<distance){nearest=p;distance=Math.abs(value-p);}}return Math.max(0,nearest);}
 export function fade(c,local,audio=false){let v=1;const fi=audio?c.audioIn:c.fadeIn,fo=audio?c.audioOut:c.fadeOut;if(fi>0)v=Math.min(v,local/fi);if(fo>0)v=Math.min(v,(c.duration-local)/fo);return clamp(v,0,1);}
@@ -33,6 +57,7 @@ for(const k of ['start','duration','offset','speed','x','y','scale','rotation','
 if(c.start<0||c.start>86400||c.duration<=0||c.duration>86400||c.offset<0||c.speed<.25||c.speed>4||c.scale<1||c.scale>500||c.opacity<0||c.opacity>100||c.volume<0||c.volume>200)throw Error('Rango de clip no válido.');
 if(c.kind==='text'&&(typeof c.text!=='string'||c.text.length>100000))throw Error('Texto no válido.');
 if(c.keyframes&&(!Array.isArray(c.keyframes)||c.keyframes.length>10000||c.keyframes.some(k=>!['t','x','y','scale','rotation','opacity'].every(x=>Number.isFinite(k[x])))))throw Error('Fotogramas clave no válidos.');
+for(const key of c.keyframes||[]){for(const prop of ANIMATABLE_PROPS)if(key[prop]!==undefined&&!Number.isFinite(key[prop]))throw Error('Parámetro animado no válido.');if(key.curve&&(!['linear','ease-in','ease-out','ease-in-out'].includes(key.curve.type)||![key.curve.from,key.curve.to].every(Number.isFinite)||key.curve.from<0||key.curve.to>1||key.curve.from>key.curve.to))throw Error('Curva de animación no válida.');}
 }
 if(!Array.isArray(p.markers)||p.markers.some(m=>!validId(m.id)||!Number.isFinite(m.time)||m.time<0||typeof m.label!=='string'))throw Error('Marcadores no válidos.');
 validateTransitions(p,validId);

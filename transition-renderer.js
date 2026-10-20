@@ -5,6 +5,7 @@ export function createTransitionRenderer(makeCanvas){
   const w=target.canvas.width,h=target.canvas.height,q=tr.progress;
   for(const canvas of buffers){if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}canvas.getContext('2d').clearRect(0,0,w,h);}
   const [outgoing,incoming,mixed]=buffers,context=mixed.getContext('2d');
+  outgoing.getContext('2d').drawImage(target.canvas,0,0);incoming.getContext('2d').drawImage(target.canvas,0,0);
   drawClip(tr.fromClip,time,outgoing.getContext('2d'),true);
   drawClip(tr.toClip,time,incoming.getContext('2d'),true);
   context.save();context.globalAlpha=1;context.globalCompositeOperation='source-over';

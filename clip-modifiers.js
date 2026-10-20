@@ -13,7 +13,7 @@ export function getClipModifiers(clip,{asset,track}={}){
  const add=(id,label,title,details,icon,tab,focusProp)=>indicators.push({id,label,title,details:details.join(' · '),icon,tab,focusProp});
  if(visual){
   const fx=[];
-  if(filterNames[clip.filter])fx.push(filterNames[clip.filter]);
+  if(filterNames[clip.filter]&&clip.filterEnabled!==false&&number(clip.filterAmount,100)>0)fx.push(`${filterNames[clip.filter]} · ${fmt(number(clip.filterAmount,100))}%`);
   if(number(clip.blur)>0)fx.push(`Desenfoque: ${fmt(clip.blur)} px`);
   if(fx.length)add('fx','FX','Efectos de vídeo',fx,'sparkles','color',number(clip.blur)>0?'blur':filterNames[clip.filter]?'filter':null);
   const anim=[];
@@ -21,7 +21,7 @@ export function getClipModifiers(clip,{asset,track}={}){
   if(number(clip.fadeIn)>0)anim.push(`Entrada: ${fmt(clip.fadeIn)} s`);
   if(number(clip.fadeOut)>0)anim.push(`Salida: ${fmt(clip.fadeOut)} s`);
   if(anim.length)add('animation','AN','Animación y fundidos',anim,'play','animation','fadeIn');
-  if(Array.isArray(clip.keyframes)&&clip.keyframes.length)add('keyframes',String(clip.keyframes.length),'Fotogramas clave',[`${clip.keyframes.length} claves de transformación`],'diamond','animation');
+  if(Array.isArray(clip.keyframes)&&clip.keyframes.length)add('keyframes',String(clip.keyframes.length),'Fotogramas clave',[`${clip.keyframes.length} claves de animación`],'diamond','animation');
   const colour=[];
   for(const [key,name,normal,suffix] of [['brightness','Brillo',100,'%'],['contrast','Contraste',100,'%'],['saturation','Saturación',100,'%'],['hue','Tono',0,'°'],['warmth','Temperatura cálida',0,'%']]){
    if(differs(clip[key],normal))colour.push(`${name}: ${fmt(clip[key])}${suffix}`);
@@ -30,7 +30,8 @@ export function getClipModifiers(clip,{asset,track}={}){
   if(clip.chroma)add('chroma','CR','Croma activado',[`Color: ${clip.chromaColor||'#00ff00'}`,`Tolerancia: ${fmt(number(clip.chromaTolerance,90))}`],'droplet','color','chroma');
   if(['circle','rounded'].includes(clip.mask)){
    add('mask','MSK','Máscara',[clip.mask==='circle'?'Máscara circular':'Rectángulo redondeado'],'shape','color','mask');
-  }else{
+  }
+  {
    const crop=[];
    for(const [key,label] of [['cropL','Izquierda'],['cropR','Derecha'],['cropT','Arriba'],['cropB','Abajo']])if(number(clip[key])>0)crop.push(`${label}: ${fmt(clip[key])}%`);
    if(crop.length)add('crop','RC','Recorte de imagen',crop,'crop','color','cropL');

@@ -1,7 +1,13 @@
-import {makeProject,validateProject} from './core.js?v=1.0.9';
+import {makeProject,validateProject} from './core.js?v=1.0.10';
 
 // Library membership is independent of the source files used by the montage.
 export const isLibraryAsset=asset=>Boolean(asset)&&asset.inLibrary!==false;
+
+export function assetUsageCounts(project){
+ const counts=new Map();
+ for(const clip of project.clips)if(clip.assetId)counts.set(clip.assetId,(counts.get(clip.assetId)||0)+1);
+ return counts;
+}
 
 export function removeFromLibrary(assets,id){
  const asset=assets.get(id);

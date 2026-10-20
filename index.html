@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101113"><meta name="description" content="DRÖMA Video Editor. Montaje multipista, texto, audio y efectos para tus historias."><title>DRÖMA · Video Editor</title><link rel="icon" href="logo-viva-blue.png?v=1.0.9" type="image/png"><link rel="stylesheet" href="style.css?v=1.0.9"></head>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101113"><meta name="description" content="DRÖMA Video Editor. Montaje multipista, texto, audio y efectos para tus historias."><title>DRÖMA · Video Editor</title><link rel="icon" href="logo-viva-blue.png?v=1.0.10" type="image/png"><link rel="stylesheet" href="style.css?v=1.0.10"></head>
 <body class="startup-active">
 <div id="startupSplash" class="startup-splash" role="status" aria-live="polite" aria-label="Presentación de DRÖMA Video Editor">
- <img id="startupCover" src="portada-video.jpg?v=1.0.9" alt="VIVA Dröma · Video Editor" width="749" height="422" fetchpriority="high" decoding="sync">
+ <img id="startupCover" src="portada-video.jpg?v=1.0.10" alt="VIVA Dröma · Video Editor" width="749" height="422" fetchpriority="high" decoding="sync">
  <span class="visually-hidden">Iniciando el editor de vídeo…</span>
 </div>
 <header class="topbar">
- <a class="brand" href="#" id="brand" aria-label="DRÖMA Video Editor"><img class="brand-logo" src="logo-video-editor.svg?v=1.0.9" alt="VIVA · VIDEO EDITOR · DRÖMA" width="184" height="64"></a>
+ <a class="brand" href="#" id="brand" aria-label="DRÖMA Video Editor"><img class="brand-logo" src="logo-video-editor.svg?v=1.0.10" alt="VIVA · VIDEO EDITOR · DRÖMA" width="184" height="64"></a>
  <div class="top-divider"></div><nav class="main-menu" aria-label="Menú principal"><button class="project-menu" id="projectMenu" aria-haspopup="true" aria-expanded="false" aria-controls="fileMenu">Archivo <span>⌄</span></button><button class="project-menu" id="manualBtn" aria-haspopup="dialog" aria-controls="manualDialog" title="Manual de uso (F1)">Manual</button></nav>
  <div class="project-name"><input id="projectName" aria-label="Nombre del proyecto" value="Proyecto sin título"><span id="saveState">Proyecto nuevo</span></div>
  <div class="header-actions"><span class="version">STUDIO · 01</span><button id="helpBtn" class="quiet" title="Guía y atajos (?)"><span data-icon="keyboard"></span> Atajos</button><button id="exportBtn" class="primary"><span data-icon="export"></span> Exportar</button></div>
@@ -37,10 +37,10 @@
 <input id="fileInput" type="file" multiple accept="video/*,audio/*,image/*,.srt" hidden><input id="projectInput" type="file" accept=".droma" hidden><input id="srtInput" type="file" accept=".srt" hidden>
 <dialog id="modal"><div id="modalContent"></div></dialog><div id="toast" role="status" hidden></div><div id="dropOverlay" hidden><div><span data-icon="import"></span><h2>Suelta tus medios aquí</h2><p>Vídeos, audio, fotografías y subtítulos SRT</p></div></div>
 <dialog id="manualDialog" class="manual-dialog" aria-labelledby="manualDialogTitle">
- <div class="manual-dialog-header"><h2 id="manualDialogTitle">Manual de uso · DRÖMA Video Editor</h2><div class="manual-dialog-actions"><button id="manualPrint" class="secondary" disabled title="Imprimir el manual completo o guardarlo como PDF">Imprimir / PDF</button><a href="manual.html?v=1.0.9" target="_blank" rel="noopener noreferrer" title="Abrir el manual en otra pestaña">Abrir aparte ↗</a><button id="manualClose" title="Cerrar manual (Esc)" aria-label="Cerrar manual"><span data-icon="close"></span></button></div></div>
+ <div class="manual-dialog-header"><h2 id="manualDialogTitle">Manual de uso · DRÖMA Video Editor</h2><div class="manual-dialog-actions"><button id="manualPrint" class="secondary" disabled title="Imprimir el manual completo o guardarlo como PDF">Imprimir / PDF</button><a href="manual.html?v=1.0.10" target="_blank" rel="noopener noreferrer" title="Abrir el manual en otra pestaña">Abrir aparte ↗</a><button id="manualClose" title="Cerrar manual (Esc)" aria-label="Cerrar manual"><span data-icon="close"></span></button></div></div>
  <iframe id="manualFrame" title="Manual de uso de DRÖMA Video Editor" referrerpolicy="no-referrer"></iframe>
 </dialog>
-<script src="startup.js?v=1.0.9"></script>
-<script type="module" src="app.js?v=1.0.9"></script>
+<script src="startup.js?v=1.0.10"></script>
+<script type="module" src="app.js?v=1.0.10"></script>
 
 </body></html>
